@@ -1,6 +1,24 @@
-<nav>
-  <h1>LITReview</h1>
+{% load static %}
+<nav class="navbar has-shadow is-white">
+  <div class="navbar-brand">
+    <!-- Logo -->
+    <a class="navbar-item" href="/">
+      <img src="{% static 'img/litreview_logo.png' %}" alt="site-logo" style="max-height: 70px"></a>
+    <!-- Logo -->
+    <a class="navbar-burger" style="height: auto; width: 82px;" id="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </a>
+  </div>
+  <!-- Menu -->
+  <div class="navbar-menu" id="nav-links">
+    <div class="navbar-end">
+      <a href="#" class="navbar-item menu-item">Feed</a>
+      <a href="#" class="navbar-item">Posts</a>
+      <a href="#" class="navbar-item">Subscriptions</a>
+      <a href="#" class="navbar-item">Logout</a>
+    </div>
+  </div>
 </nav>
-
-<hr>
-   
