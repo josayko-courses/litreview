@@ -1,0 +1,26 @@
+[tool.black]
+line-length = 119
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | migrations
+  )/
+'''
+
+# https://github.com/typeddjango/django-stubs#installation
+[tool.mypy]
+plugins = []
+
+[tool.django-stubs]
+django_settings_module = "studybud.settings"
