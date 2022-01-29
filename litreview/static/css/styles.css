@@ -1,7 +1,22 @@
 @import 'https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css';
 
+.navbar {
+  margin-bottom: 20px;
+}
+
 #nav-links > div > a.navbar-item {
   display: flex;
   justify-content: center;
   justify-items: center;
+}
+
+.container {
+  display: flex;
+  max-width: 1024px;
+  min-height: 900px;
+  justify-content: center;
+}
+
+.footer {
+  margin-top: 20px;
 }
