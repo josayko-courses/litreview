@@ -18,8 +18,31 @@
   min-height: 900px;
 }
 
-.post {
+.card {
+  margin: 10px 0;
+}
+
+.card-date {
+  display: flex;
+  flex-direction: row;
   margin: 10px;
+  justify-content: space-between;
+}
+
+.card-date time {
+  align-self: center;
+}
+
+.book-img {
+  max-height: 192px;
+  max-width: 128px;
+}
+
+.book-title {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  align-items: center;
 }
 
 .footer {

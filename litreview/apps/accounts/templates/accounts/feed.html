@@ -2,25 +2,48 @@
 
 {% block content %}
 
+<div>
+  <button class="button is-dark">New ticket</button>
+  <button class="button is-dark">Create review</button>
+</div>
+
 {% for post in posts %}
 
   {% if post.content_type == 'TICKET' %}
     <div class="card post">
-      <h3>Ticket from {{post.user}}</h3>
-      <h3 class="card-header-title">{{post.title}}</h3>
+      <h3 class="message-header">Ticket from {{post.user}}</h3>
+      <div class="book-title">
+        <h3 class="card-header-title">{{post.title}}</h3>
+      </div>
       <div class="card-content">
         <p>{{post.description}}</p>
+        <img class="book-image" src="https://via.placeholder.com/128x192">
       </div>
+
+      <div class="card-date">
+        <time>{{post.time_created}}</time>
+        <button class="button is-light">Create review</button>
+      </div>
+
     </div>
 
   {% elif post.content_type == 'REVIEW' %}
     <div class="card post">
-      <h3>Review by {{post.user}}</h3>
-      <h3 class="card-header-title">{{post.ticket}}</h3>
+      <h3 class="message-header">Review by {{post.user}}</h3>
+      <div class="book-title">
+        <h3 class="card-header-title">{{post.ticket}}</h3>
+        <img class="book-image" src="https://via.placeholder.com/128x192">
+        <p class="is-italic">{{post.headline}}</p>
+      </div>
+
       <div class="card-content">
-        <p>{{post.headline}}</p>
         <p>{{post.body}}</p>
       </div>
+
+      <div class="card-date">
+        <time>{{post.time_created}}</time>
+      </div>
+
     </div>
 
   {% endif %}
