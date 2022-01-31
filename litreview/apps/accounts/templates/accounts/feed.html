@@ -3,8 +3,8 @@
 {% block content %}
 
 <div>
-  <button class="button is-dark">New ticket</button>
-  <button class="button is-dark">Create review</button>
+  <a class="button is-light" href="/create-ticket">New ticket</a>
+  <button class="button is-light">Create review</button>
 </div>
 
 {% for post in posts %}
@@ -22,7 +22,8 @@
 
       <div class="card-date">
         <time>{{post.time_created}}</time>
-        <button class="button is-light">Create review</button>
+        <a class="button is-danger is-light is-small" href="{% url 'delete-ticket' post.id %}">Delete</a>
+        <button class="button is-light is-small">Create review</button>
       </div>
 
     </div>

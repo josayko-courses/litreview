@@ -1,13 +1,13 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
+from django import forms
 
 
 class Ticket(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
-
-    title = models.CharField(max_length=128, blank=True)
-    description = models.CharField(max_length=8192, blank=True)
+    title = models.CharField(max_length=128, blank=False)
+    description = models.CharField(max_length=8192, blank=False)
     time_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
