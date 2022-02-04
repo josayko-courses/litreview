@@ -4,7 +4,7 @@
 
 <div>
   <a class="button is-light" href="/create-ticket">New ticket</a>
-  <button class="button is-light">Create review</button>
+  <a class="button is-light" href="/create-review">Create review</a>
 </div>
 
 {% for post in posts %}
@@ -43,6 +43,7 @@
 
       <div class="card-date">
         <time>{{post.time_created}}</time>
+        <a class="button is-danger is-light is-small" href="{% url 'delete-review' post.id %}">Delete</a>
       </div>
 
     </div>

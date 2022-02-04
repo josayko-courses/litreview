@@ -2,28 +2,28 @@
 
 {% block content %}
 
-<div class="ticket-form">
-  <h3 class="title is-3">New Ticket</h3>
-
+<div class="review-form">
+  <h3 class="title is-3">New Review</h3>
   <form method="POST">
-
     {% csrf_token %}
-
     {{form.user}}
+    {{form.ticket}}
 
     <div class="field">
-      <label class="label">Title</label>
+      <label class="label">Headline</label>
       <div class="control">
-        {{form.title}}
+        {{form.headline}}
       </div>
     </div>
-    
+
     <div class="field">
-      <label class="label">Description</label>
+      <label class="label">Body</label>
       <div class="control">
-        {{form.description}}
+        {{form.body}}
       </div>
     </div>
+
+    {{form.rating}}
 
     <div class="field is-grouped">
       <div class="control">
@@ -32,6 +32,7 @@
     </div>
 
   </form>
-</div>
 
+</div>
 {% endblock content %}
+

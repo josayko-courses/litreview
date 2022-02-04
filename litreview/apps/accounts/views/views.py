@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.db.models import CharField, Value
 from itertools import chain
 
-from litreview.apps.accounts.forms import TicketForm, Ticket
+from litreview.apps.accounts.forms import TicketForm, Ticket, ReviewForm, Review
 from .get_users import get_users_viewable_reviews, get_users_viewable_tickets
 
 
@@ -36,8 +36,30 @@ def createTicket(request):
     return render(request, "accounts/ticket_form.html", context)
 
 
+def createReview(request):
+    form = ReviewForm()
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect("feed")
+
+    context = {"form": form}
+    return render(request, "accounts/review_form.html", context)
+
+
 def deleteTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
+    if request.method == "POST":
+        ticket.delete()
+        return redirect("feed")
+
+    context = {"obj": ticket}
+    return render(request, "accounts/delete.html", context)
+
+
+def deleteReview(request, pk):
+    ticket = Review.objects.get(id=pk)
     if request.method == "POST":
         ticket.delete()
         return redirect("feed")
