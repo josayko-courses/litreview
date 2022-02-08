@@ -5,6 +5,8 @@ from itertools import chain
 from litreview.apps.accounts.forms import TicketForm, Ticket, ReviewForm, Review
 from .get_users import get_users_viewable_reviews, get_users_viewable_tickets
 
+from django.contrib.auth.decorators import login_required
+
 
 def feed(request):
 
@@ -24,6 +26,7 @@ def feed(request):
     return render(request, "accounts/feed.html", context)
 
 
+@login_required(login_url='login')
 def createTicket(request):
     form = TicketForm()
     if request.method == "POST":
@@ -36,6 +39,7 @@ def createTicket(request):
     return render(request, "accounts/ticket_form.html", context)
 
 
+@login_required(login_url='login')
 def createReview(request):
     form = ReviewForm()
     if request.method == "POST":
@@ -48,6 +52,7 @@ def createReview(request):
     return render(request, "accounts/review_form.html", context)
 
 
+@login_required(login_url='login')
 def deleteTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     if request.method == "POST":
@@ -58,6 +63,7 @@ def deleteTicket(request, pk):
     return render(request, "accounts/delete.html", context)
 
 
+@login_required(login_url='login')
 def deleteReview(request, pk):
     ticket = Review.objects.get(id=pk)
     if request.method == "POST":
