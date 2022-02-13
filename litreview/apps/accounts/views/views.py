@@ -78,6 +78,36 @@ def createReview(request):
 
 
 @login_required(login_url='login')
+def updateTicket(request, pk):
+    ticket = Ticket.objects.get(id=pk)
+    form = TicketForm(instance=ticket)
+
+    if request.method == "POST":
+        form = TicketForm(request.POST, instance=ticket)
+        if form.is_valid():
+            form.save()
+            return redirect("posts")
+
+    context = {"form": form}
+    return render(request, "accounts/ticket_form.html", context)
+
+
+@login_required(login_url='login')
+def updateReview(request, pk):
+    review = Review.objects.get(id=pk)
+    form = ReviewForm(instance=review)
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect("posts")
+
+    context = {"form": form}
+    return render(request, "accounts/review_form.html", context)
+
+
+@login_required(login_url='login')
 def deleteTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     if request.method == "POST":

@@ -17,7 +17,7 @@
       <div class="card-date">
         <time>{{post.time_created}}</time>
         <div>
-          <button class="button is-light is-small">Update</button>
+          <a class="button is-light is-small" href="{% url 'update-ticket' post.id %}">Update</a>
           <a class="button is-danger is-light is-small" href="{% url 'delete-ticket' post.id %}">Delete</a>
         </div>
       </div>
@@ -40,7 +40,7 @@
       <div class="card-date">
         <time>{{post.time_created}}</time>
         <div>
-          <button class="button is-light is-small">Update</button>
+          <a class="button is-light is-small" href="{% url 'update-review' post.id %}">Update</a>
           <a class="button is-danger is-light is-small" href="{% url 'delete-review' post.id %}">Delete</a>
         </div>
       </div>
