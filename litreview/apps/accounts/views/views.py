@@ -74,11 +74,22 @@ def createReview(request, pk):
     except:
         ticket = None
 
-    form = ReviewForm()
+    form1 = None
+    if ticket is None:
+        form1 = TicketForm()
+
+    form2 = ReviewForm()
     if request.method == "POST":
-        form = ReviewForm(request.POST)
-        if ticket and form.is_valid:
-            review = form.save(commit=False)
+        if form1:
+            form1 = TicketForm(request.POST)
+            if form1.is_valid:
+                ticket = form1.save(commit=False)
+                ticket.user = request.user
+                ticket.save()
+
+        form2 = ReviewForm(request.POST)
+        if ticket and form2.is_valid:
+            review = form2.save(commit=False)
             review.user = request.user
             review.ticket_id = ticket
             review.save()
@@ -86,7 +97,7 @@ def createReview(request, pk):
             ticket.save()
             return redirect("feed")
 
-    context = {"form": form}
+    context = {"form1": form1, "form2": form2}
     return render(request, "accounts/review_form.html", context)
 
 

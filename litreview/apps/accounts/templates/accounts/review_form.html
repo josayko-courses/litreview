@@ -6,23 +6,39 @@
   <h3 class="title is-3">New Review</h3>
   <form method="POST">
     {% csrf_token %}
-    {{form.ticket}}
+
+    {% if form1 %}
+      <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+          {{form1.title}}
+        </div>
+      </div>
+    
+      <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+          {{form1.description}}
+        </div>
+      </div>
+
+    {% endif %}
 
     <div class="field">
       <label class="label">Headline</label>
       <div class="control">
-        {{form.headline}}
+        {{form2.headline}}
       </div>
     </div>
 
     <div class="field">
       <label class="label">Body</label>
       <div class="control">
-        {{form.body}}
+        {{form2.body}}
       </div>
     </div>
 
-    {{form.rating}}
+    {{form2.rating}}
 
     <div class="field is-grouped">
       <div class="control">
