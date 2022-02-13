@@ -8,6 +8,7 @@ from .get_users import get_users_viewable_reviews, get_users_viewable_tickets
 from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url='login')
 def feed(request):
 
     reviews = get_users_viewable_reviews(request.user)
@@ -24,6 +25,18 @@ def feed(request):
     )
     context = {"title": "Feed", "posts": posts}
     return render(request, "accounts/feed.html", context)
+
+
+@login_required(login_url='login')
+def posts(request):
+    context = {}
+    return render(request, 'accounts/posts.html', context)
+
+
+@login_required(login_url='login')
+def subscriptions(request):
+    context = {}
+    return render(request, 'accounts/subscriptions.html', context)
 
 
 @login_required(login_url='login')
