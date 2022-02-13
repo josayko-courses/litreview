@@ -67,7 +67,7 @@ def createTicket(request):
 
 
 @login_required(login_url='login')
-def createReview(request):
+def createReview(request, pk):
     form = ReviewForm()
     if request.method == "POST":
         form = ReviewForm(request.POST)
