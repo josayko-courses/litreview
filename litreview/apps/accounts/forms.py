@@ -6,6 +6,7 @@ class TicketForm(ModelForm):
     class Meta:
         model = Ticket
         fields = "__all__"
+        exclude = ["user"]
         widgets = {
             'title': TextInput(attrs={'class': 'input'}),
             'description': Textarea(attrs={'class': 'textarea'}),
@@ -15,7 +16,7 @@ class TicketForm(ModelForm):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = "__all__"
+        exclude = ["user"]
         widgets = {
             'headline': TextInput(attrs={'class': 'input'}),
             'body': Textarea(attrs={'class': 'textarea'}),

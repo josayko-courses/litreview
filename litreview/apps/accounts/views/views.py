@@ -57,7 +57,9 @@ def createTicket(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
         if form.is_valid:
-            form.save()
+            ticket = form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
             return redirect("feed")
 
     context = {"form": form}
@@ -70,7 +72,9 @@ def createReview(request):
     if request.method == "POST":
         form = ReviewForm(request.POST)
         if form.is_valid:
-            form.save()
+            review = form.save(commit=False)
+            review.user = request.user
+            review.save()
             return redirect("feed")
 
     context = {"form": form}

@@ -6,7 +6,6 @@
   <h3 class="title is-3">New Review</h3>
   <form method="POST">
     {% csrf_token %}
-    {{form.user}}
     {{form.ticket}}
 
     <div class="field">

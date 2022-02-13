@@ -5,6 +5,7 @@ from django import forms
 
 # Ticket is tied to an user: if a user is deleted, his tickets are deleted
 class Ticket(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=128, blank=False)
     description = models.CharField(max_length=8192, blank=False)
@@ -16,6 +17,7 @@ class Ticket(models.Model):
 
 # Review is tied to an user or a ticket: delete the review if no user or ticket
 class Review(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
 
