@@ -11,11 +11,11 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='login')
 def feed(request):
 
-    reviews = get_users_viewable_reviews(request.user)
+    reviews = get_users_viewable_reviews()
     # returns queryset of reviews
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
 
-    tickets = get_users_viewable_tickets(request.user)
+    tickets = get_users_viewable_tickets()
     # returns queryset of tickets
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
@@ -29,7 +29,19 @@ def feed(request):
 
 @login_required(login_url='login')
 def posts(request):
-    context = {}
+    reviews = get_users_viewable_reviews(request.user)
+    # returns queryset of reviews
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+
+    tickets = get_users_viewable_tickets(request.user)
+    # returns queryset of tickets
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+
+    # combine and sort the two types of posts
+    posts = sorted(
+        chain(reviews, tickets), key=lambda post: post.time_created, reverse=True
+    )
+    context = {"title": "Posts", "posts": posts}
     return render(request, 'accounts/posts.html', context)
 
 

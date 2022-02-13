@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<h2>Feed</h2>
 
 {% if request.user.is_authenticated %}
 <div>
@@ -10,7 +11,6 @@
 {% endif %}
 
 {% for post in posts %}
-
   {% if post.content_type == 'TICKET' %}
     <div class="card post">
       <h3 class="message-header">Ticket from {{post.user}}</h3>
@@ -24,12 +24,8 @@
 
       <div class="card-date">
         <time>{{post.time_created}}</time>
-        {% if request.user.username == post.user.username %}
-        <a class="button is-danger is-light is-small" href="{% url 'delete-ticket' post.id %}">Delete</a>
         <button class="button is-light is-small">Create review</button>
-        {% endif %}
       </div>
-
     </div>
 
   {% elif post.content_type == 'REVIEW' %}
@@ -48,16 +44,9 @@
 
       <div class="card-date">
         <time>{{post.time_created}}</time>
-        {% if request.user.username == post.user.username %}
-        <a class="button is-danger is-light is-small" href="{% url 'delete-review' post.id %}">Delete</a>
-        {% endif %}
       </div>
-
     </div>
-
   {% endif %}
-
 {% endfor %}
-
 {% endblock content %}
 
