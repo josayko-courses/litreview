@@ -68,13 +68,22 @@ def createTicket(request):
 
 @login_required(login_url='login')
 def createReview(request, pk):
+    ticket = None
+    try:
+        ticket = Ticket.objects.get(id=pk)
+    except:
+        ticket = None
+
     form = ReviewForm()
     if request.method == "POST":
         form = ReviewForm(request.POST)
-        if form.is_valid:
+        if ticket and form.is_valid:
             review = form.save(commit=False)
             review.user = request.user
+            review.ticket_id = ticket
             review.save()
+            ticket.review_id = review
+            ticket.save()
             return redirect("feed")
 
     context = {"form": form}
@@ -116,7 +125,7 @@ def deleteTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     if request.method == "POST":
         ticket.delete()
-        return redirect("feed")
+        return redirect("posts")
 
     context = {"obj": ticket}
     return render(request, "accounts/delete.html", context)
@@ -127,7 +136,7 @@ def deleteReview(request, pk):
     ticket = Review.objects.get(id=pk)
     if request.method == "POST":
         ticket.delete()
-        return redirect("feed")
+        return redirect("posts")
 
     context = {"obj": ticket}
     return render(request, "accounts/delete.html", context)

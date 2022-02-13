@@ -14,7 +14,9 @@ class Ticket(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'id: {self.id}, title: {self.title}, review_id: {self.review_id}'
+        if self.review_id is None:
+            return f'id: {self.id}, {self.title}, Review<{self.review_id}>'
+        return f'id: {self.id}, {self.title}, Review<id: {self.review_id.id}, headline: {self.review_id.headline}>'
 
 
 # Review is tied to an user or a ticket: delete the review if no user or ticket
@@ -32,7 +34,7 @@ class Review(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'id: {self.id}, title: {self.ticket_id.title}, ticket_id: {self.ticket_id.id}'
+        return f'id: {self.id}, headline: {self.headline}, Ticket<id: {self.ticket_id.id}, title: {self.ticket_id.title}>'
 
 
 class UserFollows(models.Model):
