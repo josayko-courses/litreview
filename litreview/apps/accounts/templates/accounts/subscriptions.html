@@ -9,12 +9,11 @@
     {% csrf_token %}
     <div class="field has-addons">
       <div class="control">
-        <input class="input" type="text" placeholder="Enter user name">
+        {{ form.followed_user }}
       </div>
       <div class="control">
-        <a class="button is-info">Subscribe</a>
-  </div>
-      
+        <input type="submit" class="button is-info" value="Add">
+      </div>
     </div>
 
   </form>

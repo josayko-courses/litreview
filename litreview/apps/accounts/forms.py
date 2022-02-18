@@ -1,5 +1,7 @@
 from django.forms import ModelForm, Textarea, TextInput
 from .models import Ticket, Review, UserFollow
+from django.db import models
+from django import forms
 
 
 class TicketForm(ModelForm):
@@ -23,10 +25,17 @@ class ReviewForm(ModelForm):
 
 
 class UserFollowForm(ModelForm):
+    followed_user = models.CharField(max_length=128)
+
     class Meta:
         model = UserFollow
-        fields = "__all__"
         exclude = ["user"]
         widgets = {
-            'followed_user': TextInput(attrs={'class': 'input'}),
+            'followed_user': TextInput(
+                attrs={
+                    'class': 'input',
+                    'type': 'text',
+                    'placeholder': 'Enter user name',
+                }
+            ),
         }
