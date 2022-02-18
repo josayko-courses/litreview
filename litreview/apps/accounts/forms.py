@@ -25,13 +25,11 @@ class ReviewForm(ModelForm):
 
 
 class UserFollowForm(ModelForm):
-    followed_user = models.CharField(max_length=128)
-
     class Meta:
         model = UserFollow
-        exclude = ["user"]
+        exclude = ["user", "followed_user"]
         widgets = {
-            'followed_user': TextInput(
+            'user_to_add': TextInput(
                 attrs={
                     'class': 'input',
                     'type': 'text',

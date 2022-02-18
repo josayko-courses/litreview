@@ -44,6 +44,7 @@ class UserFollow(models.Model):
     followed_user = models.ForeignKey(
         to=User, related_name="followed_user", on_delete=models.CASCADE
     )
+    user_to_add = models.CharField(max_length=128, blank=True)
 
     class Meta:
         # ensures we don't get multiple UserFollow instances

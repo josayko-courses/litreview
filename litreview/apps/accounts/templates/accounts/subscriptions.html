@@ -5,17 +5,16 @@
   <h3 class="title is-3">Subscriptions</h3>
 
   <form method="POST">
-
     {% csrf_token %}
+    {% include 'messages.html' %}
     <div class="field has-addons">
       <div class="control">
-        {{ form.followed_user }}
+        {{ form.user_to_add }}
       </div>
       <div class="control">
         <input type="submit" class="button is-info" value="Add">
       </div>
     </div>
-
   </form>
 
 </div>

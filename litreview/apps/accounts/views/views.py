@@ -1,6 +1,10 @@
 from django.shortcuts import redirect, render
 from django.db.models import CharField, Value
 from itertools import chain
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.db import IntegrityError
+
 
 from litreview.apps.accounts.forms import (
     TicketForm,
@@ -56,6 +60,19 @@ def posts(request):
 def subscriptions(request):
     form = UserFollowForm()
     context = {'form': form}
+    if request.method == "POST":
+        form = UserFollowForm(request.POST)
+        if form.is_valid:
+            sub = form.save(commit=False)
+            sub.user = request.user
+            try:
+                sub.followed_user = User.objects.get(username=sub.user_to_add)
+                sub.save()
+            except IntegrityError:
+                messages.warning(request, "Already suscribed to this user")
+            except:
+                messages.error(request, "User does not exists")
+            return redirect("subscriptions")
     return render(request, 'accounts/subscriptions.html', context)
 
 
