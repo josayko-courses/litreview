@@ -18,6 +18,20 @@
   min-height: 900px;
 }
 
+.subscriptions-list {
+  margin-top: 30px;
+}
+
+.followers {
+  margin-top: 30px;
+}
+
+.box.sub {
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
 .card {
   margin: 10px 0;
 }

@@ -1,7 +1,8 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div class="ticket-form">
+
+<div class="subscription-form">
   <h3 class="title is-3">Subscriptions</h3>
 
   <form method="POST">
@@ -16,8 +17,30 @@
       </div>
     </div>
   </form>
-
 </div>
 
+<div class="subscriptions-list">
+  {% for sub in subs %}
+  <div class="box sub">
+    <div>{{sub.followed_user}}</div>
+    <a class="button is-danger is-small is-light" href="#">Unsuscribe</a>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="followers">
+  <h5 class="title is-5">Followers</h5>
+  <div class="table-container">
+    <table class="table is-bordered is-fullwidth">
+      <tbody>
+        {% for follow in followers %}
+        <tr>
+          <td>{{ follow.user }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 
 {% endblock content %}

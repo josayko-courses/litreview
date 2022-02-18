@@ -12,9 +12,14 @@ from litreview.apps.accounts.forms import (
     ReviewForm,
     Review,
     UserFollowForm,
-    UserFollow,
 )
-from .get_users import get_users_viewable_reviews, get_users_viewable_tickets
+
+from .get_users import (
+    get_users_viewable_reviews,
+    get_users_viewable_tickets,
+    get_users_subs,
+    get_users_followers,
+)
 
 from django.contrib.auth.decorators import login_required
 
@@ -59,7 +64,6 @@ def posts(request):
 @login_required(login_url='login')
 def subscriptions(request):
     form = UserFollowForm()
-    context = {'form': form}
     if request.method == "POST":
         form = UserFollowForm(request.POST)
         if form.is_valid:
@@ -73,6 +77,10 @@ def subscriptions(request):
             except:
                 messages.error(request, "User does not exists")
             return redirect("subscriptions")
+    subs = get_users_subs(request.user)
+    followers = get_users_followers(request.user)
+
+    context = {'form': form, 'subs': subs, 'followers': followers}
     return render(request, 'accounts/subscriptions.html', context)
 
 
