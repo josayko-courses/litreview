@@ -23,7 +23,7 @@ class Ticket(models.Model):
 class Review(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    ticket_id = models.OneToOneField(to=Ticket, on_delete=models.CASCADE)
+    ticket_id = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
 
     headline = models.CharField(max_length=128)
     body = models.CharField(max_length=8192, blank=True)
@@ -37,17 +37,21 @@ class Review(models.Model):
         return f'id: {self.id}, headline: {self.headline}, Ticket<id: {self.ticket_id.id}, title: {self.ticket_id.title}>'
 
 
-class UserFollows(models.Model):
-    # Your UserFollows model definition goes here
+class UserFollow(models.Model):
+    # Your UserFollow model definition goes here
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(to=User, related_name='user', on_delete=models.CASCADE)
     followed_user = models.ForeignKey(
         to=User, related_name="followed_user", on_delete=models.CASCADE
     )
 
     class Meta:
-        # ensures we don't get multiple UserFollows instances
+        # ensures we don't get multiple UserFollow instances
         # for unique user-user_followed pairs
         unique_together = (
             'user',
             'followed_user',
         )
+
+    def __str__(self):
+        return f'{self.user} => {self.followed_user}'

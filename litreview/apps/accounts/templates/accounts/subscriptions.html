@@ -1,6 +1,25 @@
 {% extends 'main.html' %}
 
 {% block content %}
-subscriptions
+<div class="ticket-form">
+  <h3 class="title is-3">Subscriptions</h3>
+
+  <form method="POST">
+
+    {% csrf_token %}
+    <div class="field has-addons">
+      <div class="control">
+        <input class="input" type="text" placeholder="Enter user name">
+      </div>
+      <div class="control">
+        <a class="button is-info">Subscribe</a>
+  </div>
+      
+    </div>
+
+  </form>
+
+</div>
+
 
 {% endblock content %}

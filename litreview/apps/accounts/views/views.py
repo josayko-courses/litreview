@@ -2,7 +2,14 @@ from django.shortcuts import redirect, render
 from django.db.models import CharField, Value
 from itertools import chain
 
-from litreview.apps.accounts.forms import TicketForm, Ticket, ReviewForm, Review
+from litreview.apps.accounts.forms import (
+    TicketForm,
+    Ticket,
+    ReviewForm,
+    Review,
+    UserFollowForm,
+    UserFollow,
+)
 from .get_users import get_users_viewable_reviews, get_users_viewable_tickets
 
 from django.contrib.auth.decorators import login_required
@@ -47,7 +54,8 @@ def posts(request):
 
 @login_required(login_url='login')
 def subscriptions(request):
-    context = {}
+    form = UserFollowForm()
+    context = {'form': form}
     return render(request, 'accounts/subscriptions.html', context)
 
 
