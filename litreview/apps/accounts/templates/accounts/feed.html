@@ -13,14 +13,7 @@
 {% for post in posts %}
   {% if post.content_type == 'TICKET' %}
     <div class="card post">
-      <h3 class="message-header">Ticket from {{post.user}}</h3>
-      <div class="book-title">
-        <h3 class="card-header-title">{{post.title}}</h3>
-      </div>
-      <div class="card-content">
-        <p>{{post.description}}</p>
-        <img class="book-image" src="https://via.placeholder.com/128x192">
-      </div>
+      {% include 'accounts/ticket_description.html' %}
 
       <div class="card-date">
         <time>{{post.time_created}}</time>
@@ -32,17 +25,7 @@
 
   {% elif post.content_type == 'REVIEW' %}
     <div class="card post">
-      <h3 class="message-header">Review by {{post.user}}</h3>
-      <div class="book-title">
-        <h3 class="card-header-title">{{post.ticket}}</h3>
-        <img class="book-image" src="https://via.placeholder.com/128x192">
-        <p class="is-italic">{{post.headline}}</p>
-        <p>{{post.rating}}/5</p>
-      </div>
-
-      <div class="card-content">
-        <p>{{post.body}}</p>
-      </div>
+      {% include 'accounts/review_description.html' %}
 
       <div class="card-date">
         <time>{{post.time_created}}</time>
