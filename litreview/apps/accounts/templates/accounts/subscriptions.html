@@ -13,7 +13,7 @@
         {{ form.user_to_add }}
       </div>
       <div class="control">
-        <input type="submit" class="button is-info" value="Add">
+        <input type="submit" class="button is-info" name="add" value="Add">
       </div>
     </div>
   </form>
@@ -23,7 +23,10 @@
   {% for sub in subs %}
   <div class="box sub">
     <div>{{sub.followed_user}}</div>
-    <a class="button is-danger is-small is-light" href="#">Unsuscribe</a>
+    <form method="POST" action="">
+      {% csrf_token %}
+      <button class="button is-danger is-small is-light" type="submit" name="delete" value="{{ sub.id }}">Unsuscribe</button>
+    </form>
   </div>
   {% endfor %}
 </div>

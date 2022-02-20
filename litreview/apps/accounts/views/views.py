@@ -12,6 +12,7 @@ from litreview.apps.accounts.forms import (
     ReviewForm,
     Review,
     UserFollowForm,
+    UserFollow,
 )
 
 from .get_users import (
@@ -65,18 +66,24 @@ def posts(request):
 def subscriptions(request):
     form = UserFollowForm()
     if request.method == "POST":
-        form = UserFollowForm(request.POST)
-        if form.is_valid:
-            sub = form.save(commit=False)
-            sub.user = request.user
-            try:
-                sub.followed_user = User.objects.get(username=sub.user_to_add)
-                sub.save()
-            except IntegrityError:
-                messages.warning(request, "Already suscribed to this user")
-            except:
-                messages.error(request, "User does not exists")
+        if 'add' in request.POST:
+            form = UserFollowForm(request.POST)
+            if form.is_valid:
+                sub = form.save(commit=False)
+                sub.user = request.user
+                try:
+                    sub.followed_user = User.objects.get(username=sub.user_to_add)
+                    sub.save()
+                except IntegrityError:
+                    messages.warning(request, "Already suscribed to this user")
+                except:
+                    messages.error(request, "User does not exists")
+                return redirect("subscriptions")
+        else:
+            id = request.POST.get('delete')
+            UserFollow.objects.filter(id=id).delete()
             return redirect("subscriptions")
+
     subs = get_users_subs(request.user)
     followers = get_users_followers(request.user)
 
