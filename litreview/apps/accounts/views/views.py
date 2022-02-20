@@ -28,11 +28,11 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='login')
 def feed(request):
 
-    reviews = get_users_viewable_reviews()
+    reviews = get_users_viewable_reviews(request.user, feed=True)
     # returns queryset of reviews
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
 
-    tickets = get_users_viewable_tickets()
+    tickets = get_users_viewable_tickets(request.user, feed=True)
     # returns queryset of tickets
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
@@ -72,8 +72,9 @@ def subscriptions(request):
                 sub = form.save(commit=False)
                 sub.user = request.user
                 try:
-                    sub.followed_user = User.objects.get(username=sub.user_to_add)
-                    sub.save()
+                    if sub.user_to_add != request.user.username:
+                        sub.followed_user = User.objects.get(username=sub.user_to_add)
+                        sub.save()
                 except IntegrityError:
                     messages.warning(request, "Already suscribed to this user")
                 except:
