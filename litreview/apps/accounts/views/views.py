@@ -168,7 +168,7 @@ def updateReview(request, pk):
             form.save()
             return redirect("posts")
 
-    context = {"form": form}
+    context = {"form2": form}
     return render(request, "accounts/review_form.html", context)
 
 
