@@ -153,7 +153,7 @@ def updateTicket(request, pk):
             form.save()
             return redirect("posts")
 
-    context = {"form": form}
+    context = {"form": form, "update": True}
     return render(request, "accounts/ticket_form.html", context)
 
 
@@ -168,7 +168,7 @@ def updateReview(request, pk):
             form.save()
             return redirect("posts")
 
-    context = {"form2": form}
+    context = {"form2": form, "update": True}
     return render(request, "accounts/review_form.html", context)
 
 

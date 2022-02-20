@@ -1,7 +1,5 @@
-from django.forms import ModelForm, Textarea, TextInput
+from django.forms import ModelForm, Textarea, TextInput, RadioSelect
 from .models import Ticket, Review, UserFollow
-from django.db import models
-from django import forms
 
 
 class TicketForm(ModelForm):
@@ -21,6 +19,9 @@ class ReviewForm(ModelForm):
         widgets = {
             'headline': TextInput(attrs={'class': 'input'}),
             'body': Textarea(attrs={'class': 'textarea'}),
+            'rating': RadioSelect(
+                choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')]
+            ),
         }
 
 

@@ -3,7 +3,11 @@
 {% block content %}
 
 <div class="ticket-form">
+  {% if update %}
+  <h3 class="title is-3">Update Ticket</h3>
+  {% else %}
   <h3 class="title is-3">New Ticket</h3>
+  {% endif %}
 
   <form method="POST">
 
