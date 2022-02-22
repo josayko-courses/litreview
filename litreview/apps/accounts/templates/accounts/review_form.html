@@ -34,6 +34,18 @@
           {{form1.img}}
         </div>
       </div>
+    {% else %}
+      <div class="card post">
+        <div class="book-title">
+          <h3 class="card-header-title">{{post.title}}</h3>
+        </div>
+        <div class="card-content">
+          <p>{{post.description}}</p>
+          {% if post.img %}
+          <img class="book-image" src={{post.img.url}} width="128px">
+          {% endif %}
+        </div>
+      </div>
       <hr>
     {% endif %}
 

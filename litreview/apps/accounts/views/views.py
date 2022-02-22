@@ -143,7 +143,7 @@ def createReview(request, pk):
             ticket.save()
             return redirect("feed")
 
-    context = {"title": "New Review", "form1": form1, "form2": form2}
+    context = {"title": "New Review", "form1": form1, "form2": form2, "post": ticket}
     return render(request, "accounts/review_form.html", context)
 
 
