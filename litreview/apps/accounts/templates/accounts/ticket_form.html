@@ -9,7 +9,7 @@
   <h3 class="title is-3">New Ticket</h3>
   {% endif %}
 
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
 
     {% csrf_token %}
     <div class="field">
@@ -23,6 +23,13 @@
       <label class="label">Description</label>
       <div class="control">
         {{form.description}}
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Image</label>
+      <div class="control">
+        {{form.img}}
       </div>
     </div>
 

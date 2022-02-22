@@ -101,7 +101,7 @@ def subscriptions(request):
 def createTicket(request):
     form = TicketForm()
     if request.method == "POST":
-        form = TicketForm(request.POST)
+        form = TicketForm(request.POST, request.FILES)
         if form.is_valid:
             ticket = form.save(commit=False)
             ticket.user = request.user
@@ -127,7 +127,7 @@ def createReview(request, pk):
     form2 = ReviewForm()
     if request.method == "POST":
         if form1:
-            form1 = TicketForm(request.POST)
+            form1 = TicketForm(request.POST, request.FILES)
             if form1.is_valid:
                 ticket = form1.save(commit=False)
                 ticket.user = request.user
