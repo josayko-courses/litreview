@@ -25,16 +25,16 @@ from .get_users import (
 from django.contrib.auth.decorators import login_required
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def feed(request):
 
     reviews = get_users_viewable_reviews(request.user, feed=True)
     # returns queryset of reviews
-    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    reviews = reviews.annotate(content_type=Value("REVIEW", CharField()))
 
     tickets = get_users_viewable_tickets(request.user, feed=True)
     # returns queryset of tickets
-    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
 
     # combine and sort the two types of posts
     posts = sorted(
@@ -44,29 +44,29 @@ def feed(request):
     return render(request, "accounts/feed.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def posts(request):
     reviews = get_users_viewable_reviews(request.user)
     # returns queryset of reviews
-    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    reviews = reviews.annotate(content_type=Value("REVIEW", CharField()))
 
     tickets = get_users_viewable_tickets(request.user)
     # returns queryset of tickets
-    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
 
     # combine and sort the two types of posts
     posts = sorted(
         chain(reviews, tickets), key=lambda post: post.time_created, reverse=True
     )
     context = {"title": "Posts", "posts": posts}
-    return render(request, 'accounts/posts.html', context)
+    return render(request, "accounts/posts.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def subscriptions(request):
     form = UserFollowForm()
     if request.method == "POST":
-        if 'add' in request.POST:
+        if "add" in request.POST:
             form = UserFollowForm(request.POST)
             if form.is_valid:
                 sub = form.save(commit=False)
@@ -81,18 +81,23 @@ def subscriptions(request):
                     messages.error(request, "User does not exists")
                 return redirect("subscriptions")
         else:
-            id = request.POST.get('delete')
+            id = request.POST.get("delete")
             UserFollow.objects.filter(id=id).delete()
             return redirect("subscriptions")
 
     subs = get_users_subs(request.user)
     followers = get_users_followers(request.user)
 
-    context = {'form': form, 'subs': subs, 'followers': followers}
-    return render(request, 'accounts/subscriptions.html', context)
+    context = {
+        "title": "Subscriptions",
+        "form": form,
+        "subs": subs,
+        "followers": followers,
+    }
+    return render(request, "accounts/subscriptions.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def createTicket(request):
     form = TicketForm()
     if request.method == "POST":
@@ -103,11 +108,11 @@ def createTicket(request):
             ticket.save()
             return redirect("feed")
 
-    context = {"form": form}
+    context = {"title": "New Ticket", "form": form}
     return render(request, "accounts/ticket_form.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def createReview(request, pk):
     ticket = None
     try:
@@ -138,11 +143,11 @@ def createReview(request, pk):
             ticket.save()
             return redirect("feed")
 
-    context = {"form1": form1, "form2": form2}
+    context = {"title": "New Review", "form1": form1, "form2": form2}
     return render(request, "accounts/review_form.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def updateTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     form = TicketForm(instance=ticket)
@@ -153,11 +158,11 @@ def updateTicket(request, pk):
             form.save()
             return redirect("posts")
 
-    context = {"form": form, "update": True}
+    context = {"title": "Update Ticket", "form": form, "update": True}
     return render(request, "accounts/ticket_form.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def updateReview(request, pk):
     review = Review.objects.get(id=pk)
     form = ReviewForm(instance=review)
@@ -168,27 +173,27 @@ def updateReview(request, pk):
             form.save()
             return redirect("posts")
 
-    context = {"form2": form, "update": True}
+    context = {"title": "Update Review", "form2": form, "update": True}
     return render(request, "accounts/review_form.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def deleteTicket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     if request.method == "POST":
         ticket.delete()
         return redirect("posts")
 
-    context = {"obj": ticket}
+    context = {"title": "Delete Review", "obj": ticket}
     return render(request, "accounts/delete.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 def deleteReview(request, pk):
     ticket = Review.objects.get(id=pk)
     if request.method == "POST":
         ticket.delete()
         return redirect("posts")
 
-    context = {"obj": ticket}
+    context = {"title": "Delete Review", "obj": ticket}
     return render(request, "accounts/delete.html", context)
