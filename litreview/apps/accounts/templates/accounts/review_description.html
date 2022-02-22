@@ -1,5 +1,9 @@
 {% block content %}
-<h3 class="message-header">Review by {{post.user}}</h3>
+{% if post.user == request.user %}
+<h3 class="message-header has-background-primary has-text-white ">You posted a review</h3>
+{% else %}
+<h3 class="message-header has-background-primary-light has-text-primary ">Review posted by {{post.user}}</h3>
+{% endif %}
 <div class="book-title">
   <h3 class="card-header-title">{{post.ticket_id.title}}</h3>
   {% if post.ticket_id.img %}

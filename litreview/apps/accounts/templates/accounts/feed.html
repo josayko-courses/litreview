@@ -5,8 +5,8 @@
 
 {% if request.user.is_authenticated %}
 <div>
-  <a class="button is-light" href="/create-ticket">New ticket</a>
-  <a class="button is-light" href="{% url 'create-review' 'new' %}">Create review</a>
+  <a class="button is-light" href="/create-ticket">New Ticket</a>
+  <a class="button is-primary is-light" href="{% url 'create-review' 'new' %}">Create Review</a>
 </div>
 {% endif %}
 
@@ -18,7 +18,7 @@
       <div class="card-date">
         <time>{{post.time_created}}</time>
         {% if post.review_id is None %}
-          <a class="button is-light is-small" href="{% url 'create-review' post.id %}">Create review</a>
+          <a class="button is-primary is-light is-small" href="{% url 'create-review' post.id %}">Review ticket</a>
         {% endif %}
       </div>
     </div>

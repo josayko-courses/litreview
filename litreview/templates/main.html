@@ -16,7 +16,7 @@
     <div class="container">
 
       {% if request.user.is_authenticated %}
-      <p>Hello {{ request.user }} !</p>
+      <p class="subtitle">Hello <b>{{ request.user }}</b> !</p>
       {% endif %}
 
 

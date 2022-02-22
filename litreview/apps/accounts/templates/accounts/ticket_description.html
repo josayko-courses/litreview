@@ -1,6 +1,9 @@
 {% block content %}
-
-<h3 class="message-header">Ticket from {{post.user}}</h3>
+{% if post.user == request.user %}
+<h3 class="message-header has-background-grey has-text-white">You posted a ticket</h3>
+{% else %}
+<h3 class="message-header has-background-light has-text-grey">Ticket posted by {{post.user}}</h3>
+{% endif %}
 
 <div class="book-title">
   <h3 class="card-header-title">{{post.title}}</h3>

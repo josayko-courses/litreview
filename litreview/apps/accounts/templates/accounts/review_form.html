@@ -27,6 +27,13 @@
           {{form1.description}}
         </div>
       </div>
+
+      <div class="field">
+        <label class="label">Image</label>
+        <div class="control">
+          {{form1.img}}
+        </div>
+      </div>
       <hr>
     {% endif %}
 
@@ -46,16 +53,6 @@
         {{form2.body}}
       </div>
     </div>
-
-    {% if form1 %}
-    <div class="field">
-      <label class="label">Image</label>
-      <div class="control">
-        {{form1.img}}
-      </div>
-    </div>
-    {% endif %}
-
 
     <div class="field rating-box">
       <label class="label">Rating</label>
