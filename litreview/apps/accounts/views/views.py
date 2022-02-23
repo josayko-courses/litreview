@@ -153,7 +153,7 @@ def updateTicket(request, pk):
     form = TicketForm(instance=ticket)
 
     if request.method == "POST":
-        form = TicketForm(request.POST, instance=ticket)
+        form = TicketForm(request.POST, request.FILES, instance=ticket)
         if form.is_valid():
             form.save()
             return redirect("posts")
