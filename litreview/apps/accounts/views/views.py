@@ -7,9 +7,21 @@ from django.db import IntegrityError
 from django.db.models import CharField, Value
 from django.shortcuts import redirect, render
 
-from litreview.apps.accounts.forms import Review, ReviewForm, Ticket, TicketForm, UserFollow, UserFollowForm
+from litreview.apps.accounts.forms import (
+    Review,
+    ReviewForm,
+    Ticket,
+    TicketForm,
+    UserFollow,
+    UserFollowForm,
+)
 
-from .get_users import get_users_followers, get_users_subs, get_users_viewable_reviews, get_users_viewable_tickets
+from .get_users import (
+    get_users_followers,
+    get_users_subs,
+    get_users_viewable_reviews,
+    get_users_viewable_tickets,
+)
 
 
 @login_required(login_url="login")
@@ -102,10 +114,11 @@ def createTicket(request):
 @login_required(login_url="login")
 def createReview(request, pk):
     ticket = None
-    try:
-        ticket = Ticket.objects.get(id=pk)
-    except Ticket.DoesNotExist:
-        ticket = None
+    if pk != "new":
+        try:
+            ticket = Ticket.objects.get(id=pk)
+        except Ticket.DoesNotExist:
+            ticket = None
 
     form1 = None
     if ticket is None:
@@ -171,16 +184,16 @@ def deleteTicket(request, pk):
         ticket.delete()
         return redirect("posts")
 
-    context = {"title": "Delete Review", "obj": ticket}
+    context = {"title": "Delete Review", "obj": ticket.title}
     return render(request, "accounts/delete.html", context)
 
 
 @login_required(login_url="login")
 def deleteReview(request, pk):
-    ticket = Review.objects.get(id=pk)
+    review = Review.objects.get(id=pk)
     if request.method == "POST":
-        ticket.delete()
+        review.delete()
         return redirect("posts")
 
-    context = {"title": "Delete Review", "obj": ticket}
+    context = {"title": "Delete Review", "obj": review.headline}
     return render(request, "accounts/delete.html", context)

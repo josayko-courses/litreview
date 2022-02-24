@@ -33,9 +33,15 @@ pip install -r requirements/dev.txt
 python manage.py runserver
 ```
 
-## Contributors
+- There are already 3 users registered in the app with the same password:
+  - _admin_
+  - _jonny_
+  - _tim_
+- Password: _litreview_
 
--   Jonny Saykosy <josayko@pm.me>
+## Author
+
+- Jonny Saykosy <josayko@pm.me>
 
 ## License & copyright
 
