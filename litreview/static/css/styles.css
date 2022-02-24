@@ -14,7 +14,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  margin: 0 25%;
+  margin: 0 15%;
   max-width: 1024px;
   min-height: 900px;
 }
@@ -88,4 +88,10 @@
 
 .footer {
   margin-top: 20px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    margin: 0 10%;
+  }
 }
