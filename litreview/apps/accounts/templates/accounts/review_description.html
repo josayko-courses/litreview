@@ -4,11 +4,25 @@
 {% else %}
 <h3 class="message-header has-background-primary-light has-text-primary ">Review posted by {{post.user}}</h3>
 {% endif %}
+
 <div class="book-title">
-  <h3 class="card-header-title">{{post.ticket_id.title}}</h3>
-  {% if post.ticket_id.img %}
-  <img class="book-image" src={{post.ticket_id.img.url}} width="128px">
-  {% endif %}
+  <div class="card post">
+    {% if post.ticket_id.user == request.user %}
+    <h3 class="message-header has-background-grey has-text-white">You posted a ticket</h3>
+    {% else %}
+    <h3 class="message-header has-background-light has-text-grey">Ticket posted by {{post.ticket_id.user}}</h3>
+    {% endif %}
+    <div class="book-title">
+      <h3 class="card-header-title">{{post.ticket_id.title}}</h3>
+    </div>
+    <div class="card-content">
+      <p>{{post.ticket_id.description}}</p>
+      {% if post.ticket_id.img %}
+      <img class="book-image" src={{post.ticket_id.img.url}} width="128px">
+      {% endif %}
+    </div>
+  </div>
+  <hr>
   <p class="is-italic">{{post.headline}}</p>
   <p>{{post.rating}}/5</p>
   <fieldset class="starability-result" data-rating="{{ post.rating }}"></fieldset> 

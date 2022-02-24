@@ -23,7 +23,7 @@ class ReviewForm(ModelForm):
             "headline": TextInput(attrs={"class": "input"}),
             "body": Textarea(attrs={"class": "textarea"}),
             "rating": RadioSelect(
-                choices=[(1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5")]
+                choices=[(0, "0"), (1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5")]
             ),
         }
 
