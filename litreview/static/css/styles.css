@@ -18,6 +18,18 @@
   min-height: 900px;
 }
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
+.login-form form {
+  display: inline-block;
+  text-align: center;
+}
+
 .subscriptions-list {
   margin-top: 30px;
 }
@@ -45,6 +57,16 @@
 
 .card-date time {
   align-self: center;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-image {
+  margin: 10px;
 }
 
 .book-img {
