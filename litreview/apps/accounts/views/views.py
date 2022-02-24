@@ -1,28 +1,15 @@
-from django.shortcuts import redirect, render
-from django.db.models import CharField, Value
 from itertools import chain
-from django.contrib.auth.models import User
+
 from django.contrib import messages
-from django.db import IntegrityError
-
-
-from litreview.apps.accounts.forms import (
-    TicketForm,
-    Ticket,
-    ReviewForm,
-    Review,
-    UserFollowForm,
-    UserFollow,
-)
-
-from .get_users import (
-    get_users_viewable_reviews,
-    get_users_viewable_tickets,
-    get_users_subs,
-    get_users_followers,
-)
-
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.db.models import CharField, Value
+from django.shortcuts import redirect, render
+
+from litreview.apps.accounts.forms import Review, ReviewForm, Ticket, TicketForm, UserFollow, UserFollowForm
+
+from .get_users import get_users_followers, get_users_subs, get_users_viewable_reviews, get_users_viewable_tickets
 
 
 @login_required(login_url="login")
