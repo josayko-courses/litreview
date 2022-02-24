@@ -77,7 +77,7 @@ def subscriptions(request):
                         sub.save()
                 except IntegrityError:
                     messages.warning(request, "Already suscribed to this user")
-                except:
+                except User.DoesNotExist:
                     messages.error(request, "User does not exists")
                 return redirect("subscriptions")
         else:
@@ -117,7 +117,7 @@ def createReview(request, pk):
     ticket = None
     try:
         ticket = Ticket.objects.get(id=pk)
-    except:
+    except Ticket.DoesNotExist:
         ticket = None
 
     form1 = None

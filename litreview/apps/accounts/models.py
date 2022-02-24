@@ -2,6 +2,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Ticket is tied to an user: if a user is deleted, his tickets are deleted
 class Ticket(models.Model):
     id = models.AutoField(primary_key=True)
@@ -35,7 +36,10 @@ class Review(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"id: {self.id}, headline: {self.headline}, Ticket<id: {self.ticket_id.id}, title: {self.ticket_id.title}>"
+        return (
+            f"id: {self.id}, headline: {self.headline}, Ticket<id: {self.ticket_id.id}",
+            f"title: {self.ticket_id.title}>",
+        )
 
 
 class UserFollow(models.Model):
