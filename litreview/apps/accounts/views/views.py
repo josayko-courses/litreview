@@ -107,7 +107,6 @@ def createTicket(request):
                 ticket.user = request.user
                 ticket.save()
             except ValueError:
-                messages.error(request, "Invalid image upload")
                 return redirect("create-ticket")
             return redirect("feed")
 
@@ -138,7 +137,6 @@ def createReview(request, pk):
                     ticket.user = request.user
                     ticket.save()
                 except ValueError:
-                    messages.error(request, "Invalid image upload")
                     return redirect("create-review", "new")
 
         form2 = ReviewForm(request.POST)
