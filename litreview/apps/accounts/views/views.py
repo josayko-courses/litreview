@@ -102,9 +102,13 @@ def createTicket(request):
     if request.method == "POST":
         form = TicketForm(request.POST, request.FILES)
         if form.is_valid:
-            ticket = form.save(commit=False)
-            ticket.user = request.user
-            ticket.save()
+            try:
+                ticket = form.save(commit=False)
+                ticket.user = request.user
+                ticket.save()
+            except ValueError:
+                messages.error(request, "Invalid image upload")
+                return redirect("create-ticket")
             return redirect("feed")
 
     context = {"title": "New Ticket", "form": form}
@@ -129,9 +133,13 @@ def createReview(request, pk):
         if form1:
             form1 = TicketForm(request.POST, request.FILES)
             if form1.is_valid:
-                ticket = form1.save(commit=False)
-                ticket.user = request.user
-                ticket.save()
+                try:
+                    ticket = form1.save(commit=False)
+                    ticket.user = request.user
+                    ticket.save()
+                except ValueError:
+                    messages.error(request, "Invalid image upload")
+                    return redirect("create-review", "new")
 
         form2 = ReviewForm(request.POST)
         if ticket and form2.is_valid:
